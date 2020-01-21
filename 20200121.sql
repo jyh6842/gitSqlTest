@@ -7,3 +7,4 @@ SELECT prod_id, prod_name
 FROM prod;
 
 --git으로 인한 업데이트 확인
+--확인 두번째
