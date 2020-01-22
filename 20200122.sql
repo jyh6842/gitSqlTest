@@ -89,3 +89,78 @@ FROM user_tables;
 -- if ( a == 5) (a의 값이 5인지 비교)
 -- sql 에서는 대입의 개념이 없다. (PL/SQL)
 -- sql = --> equal
+
+-- users의 테이블의 모든 행에 대해서 조회
+-- users에는 5건의 데이터가 존재
+SELECT *
+FROM users;
+
+-- WHERE 절 : 테이블에서 데이터를 조회할 때 조건에 맞는 행만 조회
+-- ex : userid 컬럼의 값이 brown인 행만 조회
+-- brown, 'brown' 구분
+-- ''이 없으면 brown을 컬럼, 문자열 상수로 인식
+SELECT * 
+FROM users
+WHERE userid = 'brown';
+
+--userid 가 brown이 아닌 행만 조회(brown을 제외한 4rjs)
+-- 같을 때 : =, 다를때 : !=, <>
+SELECT * 
+FROM users
+WHERE userid != 'brown';
+
+--emp 테이블에 존재하는 컬럼을 확인 해보세요 (교육 목적으로 만든 테이블임)
+SELECT *
+FROM emp;
+
+--emp 테이블에서 ename 칼럽 값이 JONES인 행만 조회
+-- * SQL KEY WORD는 대소문자를 가리지 않지만
+-- 컬럼의 값이나, 문자열 상수는 대소문자를 가린다.
+-- 'JONES', 'Jones'는 값이 다른 상수
+SELECT * 
+FROM emp
+WHERE ename = 'JONES';
+
+DESC emp;
+
+-- emp 테이블에서 deptno(부서번호)가 30보다 크거나 같은 사원들만 조회
+SELECT * 
+FROM emp
+WHERE deptno >= 30;
+
+-- 문자열 = '문자열'
+-- 숫자 : 50
+-- 날짜 : ??? -> 함수와 문자열을 결합하여 표현
+--      문자열만 이용하여 표현 가능 (권장하지 않음)
+--      국가별로 날짜 표기 방법이 다르다.
+--      한국 : 년도4자리-월2자리-일자2자리
+--      미국 : 월2자리-일자2자리-년도4자리
+
+-- 입사일자가 1980년 12월 17일 직원만 조회
+SELECT * 
+FROM emp
+WHERE hiredate = '80/12/17'; -- 위험
+
+-- TO_DATE : 문자열을 date 타입으로 변경하는 함수
+-- TO_DATE(날짜형식 문자열, 첫번째 인자의 형식)
+-- '1980/02/03'
+SELECT * 
+FROM emp
+WHERE hiredate = TO_DATE('19801217', 'YYYY/MM/DD');
+
+--범위 연산
+--sal 컬럼의 값이 1000에서 2000 사이인 사람
+--sal >= 1000
+--sal <= 2000;
+SELECT *
+FROM emp
+WHERE sal >= 1000 AND sal <=2000;
+
+-- 범위연산자를 부등호 대신에 BETWEEN AND 연산자로 대체
+SELECT * 
+FROM emp
+WHERE sal BETWEEN 1000 AND 2000;
+
+SELECT ename, hiredate
+FROM emp
+WHERE hiredate BETWEEN TO_DATE('19820101','YYYY/MM/DD') AND  TO_DATE('19830101','YYYYMMDD'); 
