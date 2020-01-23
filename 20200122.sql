@@ -1,6 +1,8 @@
 SELECT *
 FROM lprod;
 
+DESC lprod;
+
 SELECT buyer_id, buyer_name
 FROM buyer;
 
@@ -46,7 +48,7 @@ FROM lprod;
 SELECT buyer_id AS 바이어아이디, buyer_name AS 이름
 FROM buyer;
 
--- 문자열 결함
+-- 문자열 결합
 -- 자바 언어에서 문자열 결합 : + ("Hello" + "world")
 -- SQL에서는 : || ('Hello' || 'world')
 -- SSQL에서는 : concat('Hello', 'world')
@@ -103,7 +105,7 @@ SELECT *
 FROM users
 WHERE userid = 'brown';
 
---userid 가 brown이 아닌 행만 조회(brown을 제외한 4rjs)
+--userid 가 brown이 아닌 행만 조회(brown을 제외한 4전체)
 -- 같을 때 : =, 다를때 : !=, <>
 SELECT * 
 FROM users
@@ -139,7 +141,7 @@ WHERE deptno >= 30;
 -- 입사일자가 1980년 12월 17일 직원만 조회
 SELECT * 
 FROM emp
-WHERE hiredate = '80/12/17'; -- 위험
+WHERE hiredate = '80/12/17'; -- 위험(추천하지 않는다)
 
 -- TO_DATE : 문자열을 date 타입으로 변경하는 함수
 -- TO_DATE(날짜형식 문자열, 첫번째 인자의 형식)
@@ -164,3 +166,7 @@ WHERE sal BETWEEN 1000 AND 2000;
 SELECT ename, hiredate
 FROM emp
 WHERE hiredate BETWEEN TO_DATE('19820101','YYYY/MM/DD') AND  TO_DATE('19830101','YYYYMMDD'); 
+
+SELECT ename, hiredate
+FROM emp
+WHERE hiredate >= TO_DATE('19820101','YYYY/MM/DD') AND hiredate <= TO_DATE('19830101','YYYYMMDD'); 
