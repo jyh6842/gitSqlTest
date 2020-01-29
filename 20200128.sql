@@ -44,14 +44,11 @@ ORDER BY ename;
 SELECT ROWNUM, emp.*
 FROM emp;
 
-SELECT ROWNUM, e.*
-FROM emp e;
-
 
 SELECT ROWNUM, a.*
 FROM
     (SELECT empno, ename
-    FROM emp -- 하나의 테이블
+    FROM emp 
     ORDER BY ename) a; -- () 하나의 테이블로 생각, 일회성
     
  SELECT *
@@ -61,16 +58,16 @@ FROM
         (SELECT empno, ename
         FROM emp -- 하나의 테이블
         ORDER BY ename) a)
-WHERE rn BETWEEN (1-1)*5+1 AND 1*5;
+WHERE rn BETWEEN (1-1)*5+1 AND 1*5;  -- WHERE 에서 ROWNUM의 조건 사용을 위해 INLINE VIEW (subQuery 2개 사용)
 
 
 SELECT ROWNUM rn, empno, ename
 FROM emp
-WHERE ROWNUM = 1;
+WHERE ROWNUM = 1; -- OK
 
 SELECT ROWNUM rn, empno, ename
 FROM emp
-WHERE ROWNUM <= 2;
+WHERE ROWNUM <= 2; -- OK
 
 SELECT ROWNUM rn, empno, ename
 FROM emp
@@ -183,7 +180,7 @@ FROM dual;
 -- EMP 테이블에서 사람의 급여(sal)를 1000으로 나눴을때 몫
 SELECT ename, sal, sal/1000,
         TRUNC(sal/1000, 0), -- 몫
-        -- mod의 결과는 divisior보다 항상 작다.
+        -- mod의 결과는 divisior(나누는 값)보다 항상 작다.
         MOD(sal, 1000) -- 0~999
 FROM emp;
 
@@ -205,6 +202,24 @@ FROM emp;
 
 SELECT SYSDATE + 5, SYSDATE + 1/24
 FROM dual;
+
+
+-- date 실습 fn1
+SELECT TO_DATE('20191231','YYYYMMDD')
+FROM dual;
+
+SELECT TO_DATE('20191231','YYYYMMDD') - 5
+FROM dual;
+
+SELECT SYSDATE
+FROM dual;
+
+SELECT SYSDATE - 3
+FROM dual;
+
+SELECT TO_DATE('20191231','YYYYMMDD') AS lastday, TO_DATE('20191231','YYYYMMDD') - 5 AS lastday_before5, SYSDATE AS now, SYSDATE - 3 AS now_before3
+FROM dual;
+
 
 
 
