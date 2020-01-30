@@ -56,7 +56,7 @@ SELECT ADD_MONTHS(SYSDATE,5), -- 2020/01/29 -->2020/06/29
         ADD_MONTHS(SYSDATE,-5) -- 2020/01/29 -->2019/08/29
 FROM dual;
 
--- NEXT_DAY(DATE, 주간일자 ex: NEXT_DAY(SYSDATE, 5) --> ex) SYSDATE 이후 처음 등장하는 주간일자 5(목)에 해당하는 일자
+-- NEXT_DAY(DATE, 주간일자) ex: NEXT_DAY(SYSDATE, 5) --> ex) SYSDATE 이후 처음 등장하는 주간일자 5(목)에 해당하는 일자 4(수), 3(화)... 1(일)
                                                         -- SYSDATE 2020/01/29(수) 이후 처음 등장하는 5(목)요일 --> 2020/01/30(목)
 SELECT NEXT_DAY(SYSDATE, 5)
 FROM dual;
