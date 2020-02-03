@@ -161,6 +161,13 @@ SELECT buyer_id, buyer_name, prod_id, prod_name
 FROM prod JOIN buyer ON prod_lgu = buyer_lgu;
 
 -- 실습 join3
-SELECT mem_id, mem_name, prod_id, prod_name, cart_qty
-FROM member, cart, prod;
-WHERE 
+--oracel 문법
+SELECT member.mem_id, member.mem_name, prod.prod_id, prod.prod_name, cart.cart_qty
+FROM member, cart, prod
+WHERE member.mem_id = cart.cart_member
+AND cart.cart_prod = prod.prod_id;
+
+-- ANSI 문법
+SELECT member.mem_id, member.mem_name, prod.prod_id, prod.prod_name, cart.cart_qty
+FROM member JOIN cart ON (member.mem_id = cart.cart_member)
+            JOIN prod ON (cart.cart_prod = prod.prod_id);
