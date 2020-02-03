@@ -50,12 +50,117 @@ WHERE e.deptno = d.deptno;
 SELECT emp.ename, dept.dname, deptno -- 내추럴 조인
 FROM emp JOIN dept USING(deptno);
 
---JOIN WITH USING을 ORACLE로 표현하면?;
+-- JOIN WITH USING을 ORACLE로 표현하면?;
 SELECT emp.ename, dept.dname, emp.deptno -- 오라클 조인
 FROM emp, dept
 WHERE emp.deptno = dept.deptno;
 
---ANSI : JOIN WITH ON
---조인 하려고하는 테이블의 컬럼 이름이 서로 다를때;
-SELECT emp.ename, dept.dname, deptno
+-- ANSI : JOIN WITH ON
+-- 조인 하려고하는 테이블의 컬럼 이름이 서로 다를때;
+SELECT emp.ename, dept.dname, emp.deptno -- 내추럴 조인인데 한정자를 써줌 emp.deptno
 FROM emp JOIN dept ON ( emp.deptno = dept.deptno);
+
+--JOIN WITH ON -> ORACLE;
+SELECT emp.ename, dept.dname, emp.deptno -- 내추럴 조인인데 한정자를 써줌 emp.deptno
+FROM emp, dept
+WHERE emp.deptno = dept.deptno;
+
+-- SELF JOIN : 같은 테이블간의 조인;
+왜? 할까? 테이블의 계층 구조?;
+예 : emp 테이블에서 관리되는 사원의 관리자 사번을 이용하여 관리자 이름을 조회할때;
+SELECT e.empno, e.ename, m.empno, m.ename
+FROM emp e JOIN emp m ON (e.mgr = m.empno); -- 사장님은 mgr이 없어서 나오지 않음
+
+오라클 문법으로 작성;
+SELECT e.empno, e.ename, m.empno, m.ename
+FROM emp e, emp m
+WHERE e.mgr = m.empno;
+
+equal 조인 : =
+non-equal 조인 !=, >, <, BETWEEN AND ;
+
+사원의 급여 정보와 급여 등급 테이블을 이용하여
+해당사원의 급여 등급을 구해보자;
+SELECT ename, sal
+FROM emp, salgrade
+WHERE emp.sal BETWEEN salgrade.losal
+                AND salgrade.hisal;
+                
+ANSI : 문법을 이요하여 위의 조인문을 작성 ;
+SELECT e.ename, e.sal, s.grade
+FROM emp e JOIN salgrade s ON (e.sal BETWEEN s.losal AND s.hisal);
+
+SELECT * 
+FROM salgrade;
+
+-- 실습 join0
+select * from emp;
+select * from dept;
+
+SELECT e.empno, e.ename, e.deptno, d.dname
+FROM emp e, dept d
+WHERE e.deptno = d.deptno;
+
+-- 실습 join0_1
+SELECT e.empno, e.ename, e.deptno, d.dname
+FROM emp e, dept d
+WHERE e.deptno = d.deptno AND e.deptno != 20; 
+
+SELECT e.empno, e.ename, e.deptno, d.dname
+FROM emp e JOIN dept d ON (e.deptno = d.deptno) AND e.deptno IN(10,30);
+
+-- 실습 join0_2
+SELECT e.empno, e.ename, e.sal, e.deptno, d.dname 
+FROM emp e, dept d
+WHERE e.deptno = d.deptno AND e.sal>2500;
+
+SELECT e.empno, e.ename, e.sal, e.deptno, d.dname 
+FROM emp e JOIN dept d ON (e.deptno = d.deptno) AND e.sal>2500;
+
+-- 실습 join0_3
+SELECT e.empno, e.ename, e.sal, e.deptno, d.dname 
+FROM emp e, dept d
+WHERE e.deptno = d.deptno AND e.sal>2500 AND e.empno>7600;
+
+SELECT e.empno, e.ename, e.sal, e.deptno, d.dname 
+FROM emp e JOIN dept d ON (e.deptno = d.deptno) AND e.sal>2500 AND e.empno>7600;
+
+-- 실습 join0_4
+SELECT e.empno, e.ename, e.sal, e.deptno, d.dname 
+FROM emp e, dept d
+WHERE e.deptno = d.deptno AND e.sal>2500 AND e.empno>7600 AND d.dname ='RESEARCH';
+
+SELECT e.empno, e.ename, e.sal, e.deptno, d.dname 
+FROM emp e JOIN dept d ON (e.deptno = d.deptno) AND e.sal>2500 AND e.empno>7600 AND d.dname ='RESEARCH';
+
+
+-- 실습 join1
+PROD : PROD_LGU
+LPROD : LPROD_GU;
+
+-- LPROD 품목, PROD는 세부 품목
+SELECT *
+FROM prod;
+
+SELECT *
+FROM lprod;
+
+SELECT lprod_gu, lprod_nm, prod_id, prod_name
+FROM  lprod, prod 
+WHERE lprod_gu = prod_lgu;
+
+SELECT lprod_gu, lprod_nm, prod_id, prod_name
+FROM lprod lp JOIN prod ON lprod_gu = prod_lgu;
+
+-- 실습 join2
+SELECT buyer_id, buyer_name, prod_id, prod_name
+FROM prod, buyer
+WHERE prod_lgu = buyer_lgu;
+
+SELECT buyer_id, buyer_name, prod_id, prod_name
+FROM prod JOIN buyer ON prod_lgu = buyer_lgu;
+
+-- 실습 join3
+SELECT mem_id, mem_name, prod_id, prod_name, cart_qty
+FROM member, cart, prod;
+WHERE 

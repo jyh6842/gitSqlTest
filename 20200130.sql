@@ -90,7 +90,7 @@ SELECT userid, usernm, alias, reg_dt,
     CASE
         WHEN (MOD(TO_NUMBER(TO_CHAR(reg_dt, 'YYYY')),2 )) = 0 AND (MOD(TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')),2 ))=0 THEN '대상자'
         WHEN (MOD(TO_NUMBER(TO_CHAR(reg_dt, 'YYYY')),2 )) = 1 AND (MOD(TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')),2 ))=1 THEN '비대상자'        
-    END contacttoddctor
+    END contact_to_ddctor
 FROM users;
 
 -- pt168
