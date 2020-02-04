@@ -85,4 +85,4 @@ WHERE e.job_id = j.job_id;
 -- join 13
 SELECT e.manager_id mgr_id, (e.first_name || e.last_name) mgr_name, e.employee_id, (e.first_name || e.last_name) name, e.job_id, j.job_title
 FROM employees e, employees m, jobs j
-WHERE e.job_id = j.job_id AND e.employee_id = m.manager_id;
+WHERE e.job_id = j.job_id AND e.employee_id = m.manager_id AND e.manager_id IS NOT NULL;
