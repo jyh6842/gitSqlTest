@@ -275,32 +275,17 @@ WHERE g2.gb IN('롯데리아')
 GROUP BY sido, sigungu;
 
 
-SELECT g1.sido, g1.sigungu, count(g1)
-FROM (SELECT sido, sigungu, COUNT(gb)
+SELECT g1.sido, g1.sigungu, ROUND(g1_/g2_, 1)
+FROM (SELECT sido, sigungu, COUNT(gb) g1_
       FROM fastfood
       WHERE gb IN('KFC', '맥도날드', '버거킹') 
       GROUP BY sido, sigungu) g1,
-     (SELECT sido, sigungu, COUNT(gb)
+     (SELECT sido, sigungu, COUNT(gb) g2_
       FROM fastfood
       WHERE gb IN('롯데리아') 
       GROUP BY sido, sigungu) g2
 WHERE g1.sido = g2.sido AND g1.sigungu = g2.sigungu
-GROUP BY g1.sido, g1.sigungu
-      
-       ;
-       
-SELECT *
-FROM (SELECT sido, sigungu, COUNT(gb)
-      FROM fastfood
-      WHERE gb IN('KFC', '맥도날드', '버거킹') 
-      GROUP BY sido, sigungu) g1,
-     (SELECT sido, sigungu, COUNT(gb)
-      FROM fastfood
-      WHERE gb IN('롯데리아') 
-      GROUP BY sido, sigungu) g2
-
-      
-       ;
+ORDER BY ROUND(g1_/g2_, 1 ) desc;
 
 
 
