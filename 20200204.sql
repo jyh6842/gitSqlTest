@@ -160,8 +160,8 @@ WHERE empno != 7902 AND empno IS NOT NULL;
 
 pairwise (순서쌍);
 -- 순서쌍의 결과를 동시에 만족 시킬때;
-(mgr, deptno)
-(7698, 30)(7839, 10)
+-- (mgr, deptno)
+-- (7698, 30)(7839, 10)
 SELECT *
 FROM emp
 WHERE (mgr,deptno) IN  (SELECT mgr, deptno
