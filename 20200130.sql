@@ -143,7 +143,7 @@ GROUP BY empno;
 -- GROUP BY의 기준이 empno이면 결과수가 몇건??  -- 14건
 -- 그룹화와 관련없는 임의의 문자열, 함수, 숫자등은 SELECT절에 나오는 것이 가능
 SELECT -- 제거 해야함 -- deptno, ename,
-        1, SUM(sal) sum_sal, 'ACCOUNTING', MAX(sal) max_sal, MIN(sal) , ROUND(AVG(sal),2) , 
+        1, SUM(sal) sum_sal, 'ACCOUNTING', MAX(sal) max_sal, MIN(sal) , ROUND(AVG(sal),2), 
         COUNT(sal), -- sal 컬럼의 값이 null이 아닌 row의 갯수
         COUNT(comm), -- COMM 컬럼의 값이 null이 아닌 row의 갯수
         COUNT(*) -- 몇건의 데이터가 있는지

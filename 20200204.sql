@@ -3,10 +3,18 @@
 -- CROSS JOIN
 -- 조인하는 두 테이블의 연결 조건을 누락되는 경우
 -- 가능한 모든 조합에 대해 연결(조인)이 시도
--- dept(4건), emp(14건)의 CROSS JOIN의 결과 4*14 = 5건
+-- dept(4건), emp(14건)의 CROSS JOIN의 결과 4*14 = 56건
 
 -- dept 테이블과 emp 테이블을 조인을 하기 위해 FROM 절에 두개의 테이블을 기술 WHERE 절에 두 테이블의 연결 조건을 누락
 -- 가능한 모든 조합이 나옴
+select *
+from dept;
+
+select count(*)
+from emp;
+
+select count(*)
+from emp, dept; -- 이게 크로스 조인
 
 SELECT dept.dname, emp.empno, emp.ename
 FROM dept, emp
@@ -31,7 +39,7 @@ FROM customer c, product p;
 -- 구하고자 하는 것
 SMITH가 속한 부서에 속하는 직원들의 정보를 조회
 1. SMITH가 속하는 부서 번호를 구한다.
-2. 1번에서 구한 부서 번호에 속하는 직원들 정보를 조횐한다.
+2. 1번에서 구한 부서 번호에 속하는 직원들 정보를 조회한다.
 
 1.;
 SELECT deptno
