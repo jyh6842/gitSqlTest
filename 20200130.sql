@@ -116,14 +116,14 @@ FROM emp;
 
 -- 부서별 급여 합 
 SELECT deptno, ename,
-        SUM(sal) sum_sal, MAX(sal) max_sal, MIN(sal) , ROUND(AVG(sal),2) , COUNT(sal) 
+        SUM(sal) sum_sal, MAX(sal) max_sal, MIN(sal) , ROUND(AVG(sal),2), COUNT(sal) 
 FROM emp
 GROUP BY deptno, ename;
 
 -- GROUP BY 절에 없는 상태에서 그룹함수를 사용한 경우
 -- --> 전체행을 하나의 행으로 묶는다.
 SELECT -- 제거 해야함 -- deptno, ename,
-        SUM(sal) sum_sal, MAX(sal) max_sal, MIN(sal) , ROUND(AVG(sal),2) , 
+        SUM(sal) sum_sal, MAX(sal) max_sal, MIN(sal), ROUND(AVG(sal),2) , 
         COUNT(sal), -- sal 컬럼의 값이 null이 아닌 row의 갯수
         COUNT(comm), -- COMM 컬럼의 값이 null이 아닌 row의 갯수
         COUNT(*) -- 몇건의 데이터가 있는지

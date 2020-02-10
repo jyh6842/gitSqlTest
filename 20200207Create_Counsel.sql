@@ -1,10 +1,10 @@
 -- 직급 테이블 만들기
-DROP TABLE tb_grade;
-DROP TABLE tb_dept;
-DROP TABLE tb_job;
-DROP TABLE TB_EMP;
-DROP TABLE tb_cs_cd;
-DROP TABLE tb_counsel;
+--DROP TABLE tb_grade;
+--DROP TABLE tb_dept;
+--DROP TABLE tb_job;
+--DROP TABLE TB_EMP;
+--DROP TABLE tb_cs_cd;
+--DROP TABLE tb_counsel;
 
 
 CREATE TABLE tb_grade(

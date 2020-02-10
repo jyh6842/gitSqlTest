@@ -101,7 +101,7 @@ SELECT *
 FROM emp
 WHERE deptno IN (SELECT deptno
                 FROM emp
-                WHERE ename IN ('SMITH', 'WARD'))
+                WHERE ename IN ('SMITH', 'WARD'));
 
 -- SMITH, WARD 사원의 급여보다 급여가 작은 직원을 조회(SMITH, WARD 의 급여중 아무거나)
 SMITH : 800

@@ -307,9 +307,9 @@ CREATE TABLE dept_test(
 );
 
 DROP TABLE  emp_test;
-CREATE TABLE emp_test (
+CREATE TABLE emp_test(
     empno NUMBER(4),
-    ename VARCHAR2(10),
+    ename VARCHAR(10),
     deptno NUMBER(2) REFERENCES dept_test (deptno),
     
     CONSTRAINT PK_EMP_TEST PRIMARY KEY (empno)
@@ -346,6 +346,8 @@ CREATE TABLE emp_test(
 );
 INSERT INTO emp_test VALUES(9999,'brown', 10); dept_teset 테이블에 10번 부서가 존재하지 않아 에러;
 INSERT INTO emp_test VALUES(9999,'brown', 99); dept_teset 테이블에 99번 부서가 존재하므로 정상 실행;
+
+COMMIT;
 
 
 

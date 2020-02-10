@@ -12,7 +12,7 @@
 SELECT *
 FROM emp NATURAL JOIN dept;
 
--- Natural join에 사용된 조인 컬럼(deptno)는 한정자 (ex : 테이블명, 테이블 별칭)dmf tkdydgkwl dksgrh
+-- Natural join에 사용된 조인 컬럼(deptno)는 한정자 (ex : 테이블명, 테이블 별칭)을 사용하지 말고
 -- 컬럼명만 기술한다 (dept,deptno --> deptno)
 SELECT emp.empno, emp.ename, dept.dname, deptno -- deptno는 한정자를 가질수 없다. 왜냐하면 deptno를 NATURAL JOIN에 사용했기 때문이다.
 FROM emp NATURAL JOIN dept;
