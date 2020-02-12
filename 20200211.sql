@@ -54,7 +54,7 @@ FROM emp_test;
  
  주석 생성
  테이블 주석 : COMMENT ON TABLE 테이블명 IS '주석'
- 컬럼 주석 : COMMENT ON COLUM 테이블.컬럼 IS '주석';
+ 컬럼 주석 : COMMENT ON COLUMN 테이블.컬럼 IS '주석';
  
  emp : 직원;
  dept : 부서;
@@ -242,13 +242,13 @@ FROM TABLE(dbms_xplan.display);
  SELECT *
  FROM TABLE(dbms_xplan.display);
  
- INSERT INTO emp VALUES(7369, 'SMITH', 7902, TO_DATE('19801217', 'YYYY/MM/DD'), NULL, 20); -- 않넣어짐
+ INSERT INTO emp VALUES(7369, 'SMITH','CLERK', 7902, TO_DATE('19801217', 'YYYY/MM/DD'),800, NULL, 20); -- 않넣어짐
  
  SELECT *
  FROM emp
  WHERE ename = 'SMITH';
  
- SELECT 조회컬럼이 테이블 접근에 미치는 영향
+ SELECT 조회컬럼이 테이블 접근에 미치는 영향;
  SELECT * FROM emp WHERE empno = 7782;
  
  SELECT empno FROM emp WHERE empno = 7782;
@@ -310,8 +310,9 @@ Note
 -----
    - dynamic sampling used for this statement (level=2); 
    
- emp 테이블에 job 컬럼을 기준으로 하는 새로운 non-unique 인덱스를 생성
- CREATE INDEX idx_n_emp02 ON emp (job); //emp로 인덱스 만듬 2번째 인덱스를 활용해서 찾는다. 인덱스를 잘 활용하면 실행 속도가 빠르다.
+ emp 테이블에 job 컬럼을 기준으로 하는 새로운 non-unique 인덱스를 생성;
+
+ CREATE INDEX idx_n_emp_02 ON emp (job); //emp로 인덱스 만듬 2번째 인덱스를 활용해서 찾는다. 인덱스를 잘 활용하면 실행 속도가 빠르다.
  
  SELECT job, rowid
  FROM emp
@@ -335,7 +336,7 @@ Note
 -------------------------------------------------------------------------------------------
 |   0 | SELECT STATEMENT            |             |     3 |   261 |     2   (0)| 00:00:01 |
 |   1 |  TABLE ACCESS BY INDEX ROWID| EMP         |     3 |   261 |     2   (0)| 00:00:01 |
-|*  2 |   INDEX RANGE SCAN          | IDX_N_EMP02 |     1 |       |     1   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN          | IDX_N_EMP_02 |     1 |       |     1   (0)| 00:00:01 |
 -------------------------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
