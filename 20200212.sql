@@ -2,6 +2,9 @@
 2. idx1 : empno
 3. idx2 : job; <-- 이걸로 접근함
 
+SELECT job, rowid
+FROM emp;
+
 EXPLAIN PLAN FOR
 SELECT *
 FROM emp
