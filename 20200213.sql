@@ -115,13 +115,11 @@
  ----------------------------------------------------------------------------
  
  multiple insert : 하나의 insert 구문으로 여러 테이블에 데이터를 입력하는 DML;
- UPDATE dept_test SET loc = '대전' WHERE loc = 'daejeon';
+ UPDATE dept_test SET loc = '대전' WHERE loc = 'daejeon'; -- 값이 안바뀌어서 따로 넣은 것
  commit;
-  
+
  SELECT *
  FROM dept_test;
- 
-
  
  SELECT *
  FROM dept_test2;
@@ -150,12 +148,12 @@
 
  ROLLBACK;
  INSERT ALL
-    WHEN deptno = 98 THEN
+    WHEN deptno = 98 THEN -- 98이라는 조건에 만족해서 insert 됨 1행 입력
         INTO dept_test (deptno, loc) VALUES ( deptno, loc)
         INTO dept_test2
     ELSE
         INTO dept_test2
- SELECT 98 deptno, '대덕' dname, '중앙로' loc FROM dual UNION ALL -- 98이라는 조건에 만족해서 insert 됨 1행 입력
+ SELECT 98 deptno, '대덕' dname, '중앙로' loc FROM dual UNION ALL 
  SELECT 97, 'IT', '영민' FROM dual; -- else 부분이 insert 됨 2행 입력됨
  
  SELECT *
@@ -167,6 +165,8 @@
  조건을 만족하는 첫번째 insert만 실행하는 multiple insert;
  
 ROLLBACK;
+
+
  INSERT FIRST -- FIRST 라서 조건을 만족하는 첫번째 조건문만 실행됨
     WHEN deptno >= 98 THEN
         INTO dept_test (deptno, loc) VALUES ( deptno, loc)
