@@ -16,6 +16,7 @@ CREATE TABLE emp_test(
 INSERT INTO emp_test (empno, ename, deptno) VALUES (9999, 'brown', 99);
 
 ALTER TABLE emp_test MODIFY (hp VARCHAR2(20) DEFAULT '010');
+commit;
 
 SELECT *
 FROM emp_test;
