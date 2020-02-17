@@ -381,8 +381,8 @@ ROLLBACK;
                                                    0, job) job,
          
          DECODE ( GROUPING(job)+ GROUPING(deptno), 2, '계', 
-                                           1, '소계',
-                                           0, deptno) deptno, 
+                                                   1, '소계',
+                                                   0, deptno) deptno, 
         SUM(sal + NVL(comm, 0)) sal
  FROM emp
  GROUP BY ROLLUP(job, deptno);
