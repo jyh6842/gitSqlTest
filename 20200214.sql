@@ -358,18 +358,19 @@ SELECT NVL(dept.dname,'총합') dname, job,
  FROM dual
  CONNECT BY LEVEL <= :dt;
  
- SELECT TO_DATE('202002','YYYYMM') + (LEVEL-1), -- 레벨을 0으로 맞추기 위해 1을 뺌
+ SELECT TO_DATE('202002','YYYYMM') + (LEVEL-1), -- 레벨을 0으로 맞추기 위해 1을 뺌, 레벨은 1부터 시작한다. 다시 설명하면 TO_DATE('202002','YYYYMM')은 이미 레벨을 가지고 있다. LEVEL은 초기값이 1이다. + (LEVEL-1)을 해줘야 1일이 가진 요일값에 영향을 주지 않을 수 있다. 일 1 월 2 화 3 ... 토 7
         TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'),
-        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 1, TO_DATE('202002','YYYYMM') + (LEVEL-1)) s,
-        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 2, TO_DATE('202002','YYYYMM') + (LEVEL-1)) m,
-        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 3, TO_DATE('202002','YYYYMM') + (LEVEL-1)) t,
-        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 4, TO_DATE('202002','YYYYMM') + (LEVEL-1)) w,
-        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 5, TO_DATE('202002','YYYYMM') + (LEVEL-1)) t2,
-        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 6, TO_DATE('202002','YYYYMM') + (LEVEL-1)) f,
-        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 7, TO_DATE('202002','YYYYMM') + (LEVEL-1)) s2
+        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 1, TO_DATE('202002','YYYYMM') + (LEVEL-1)) sun,
+        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 2, TO_DATE('202002','YYYYMM') + (LEVEL-1)) mon,
+        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 3, TO_DATE('202002','YYYYMM') + (LEVEL-1)) tue,
+        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 4, TO_DATE('202002','YYYYMM') + (LEVEL-1)) wen,
+        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 5, TO_DATE('202002','YYYYMM') + (LEVEL-1)) thu,
+        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 6, TO_DATE('202002','YYYYMM') + (LEVEL-1)) fri,
+        DECODE(TO_CHAR(TO_DATE('202002','YYYYMM') + (LEVEL-1), 'D'), 7, TO_DATE('202002','YYYYMM') + (LEVEL-1)) sat
  FROM dual
  CONNECT BY LEVEL <= TO_CHAR(LAST_DAY(TO_DATE('202002', 'YYYYMM')), 'DD'); -- D 하나면 요일임
  
+ SELECT TO_DATE('202002' 'YYYYMM'
  
  
  SELECT TO_CHAR(LAST_DAY(TO_DATE('202002', 'YYYYMM')), 'DD') -- 이걸로 달의 일수를 구할 수 있음

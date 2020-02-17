@@ -1,3 +1,26 @@
+-- pt13
+SELECT dt, w,
+       DECODE(d, 2, dt, '') mon,
+       DECODE(d, 3, dt, '') tue,
+       DECODE(d, 4, dt, '') wen,
+       DECODE(d, 5, dt, '') thu,
+       DECODE(d, 6, dt, '') fri,
+       DECODE(d, 7, dt, '') sat,
+       DECODE(d, 1, dt, '') sun
+FROM (
+      SELECT dt,
+             TO_CHAR(dt, 'iw') w,
+             TO_CHAR(dt, 'd') d
+      FROM (
+             SELECT to_date ('202002', 'yyyymm') + (LEVEL-1) dt
+             FROM dual
+             CONNECT BY LEVEL <= last_day(to_date('202002', 'yyyymm')) - to_date('202002', 'yyyymm') +1) -- 첫날과 마지막 날을 빼면 하루가 부족함
+             );
+             
+SELECT last_day(to_date('202012', 'yyyymm'))+1
+FROM DUAL;
+       
+
 :dt ==> 202004;
 
 SELECT DECODE(d, 1, iw+1, iw) i,--일, 월, 화, 수, 목, 금, 토,
@@ -69,7 +92,8 @@ FROM
                     - (TO_DATE(:dt, 'yyyymm') - (TO_CHAR(TO_DATE(:dt,'yyyymm'),'D'))) daycnt
     FROM dual;
 ----- 1일자, 말일자가 속한 주차까지 표현한 달력
-SELECT DECODE(d, 1, iw+1, iw) i,
+SELECT DECODE(d, 1, iw+1,iw) i,
+
        MIN(DECODE(d, 1, dt)) sun,
        MIN(DECODE(d, 2, dt)) mon,
        MIN(DECODE(d, 3, dt)) tue,
@@ -79,13 +103,13 @@ SELECT DECODE(d, 1, iw+1, iw) i,
        MIN(DECODE(d, 7, dt)) sat
 FROM 
 (SELECT TO_DATE(:dt, 'yyyymm') - ( TO_CHAR(TO_DATE(:dt, 'yyyymm'), 'D') -1) + (level-1) dt,
-        TO_CHAR(TO_DATE(:dt, 'yyyymm') - ( TO_CHAR(TO_DATE(:dt, 'yyyymm'), 'D') -1)  + (LEVEL-1), 'D') d, -- d 하나면 요일
+        TO_CHAR(TO_DATE(:dt, 'yyyymm') - ( TO_CHAR(TO_DATE(:dt, 'yyyymm'), 'D') -1)  + (LEVEL-1), 'D') d, -- D 하나면 요일
         TO_CHAR(TO_DATE(:dt, 'yyyymm') - ( TO_CHAR(TO_DATE(:dt, 'yyyymm'), 'D') -1)  + (LEVEL-1), 'iw') iw
  FROM dual
  CONNECT BY LEVEL <=  last_day(to_date(:dt,'yyyymm'))+(7-to_char(last_day(to_date(:dt,'yyyymm')),'D'))
-                    -to_date(:dt,'yyyymm')-(to_char(to_date(:dt,'yyyymm'),'D')-1)  )
- GROUP BY DECODE(d, 1, iw+1, iw)
- ORDER BY DECODE(d, 1, iw+1, iw);
+                    -(to_date(:dt,'yyyymm')-(to_char(to_date(:dt,'yyyymm'),'D')))  )
+ GROUP BY DECODE(d, 1, iw+1, iw), DECODE(d, 53, iw+1, iw) i
+ ORDER BY DECODE(d, 1, iw+1, iw), DECODE(d, 53, iw+1, iw) i;
  
  
  -- 달력만들기 복습 데이터.sql
