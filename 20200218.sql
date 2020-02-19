@@ -25,7 +25,6 @@ select '0123' s_id, '012' ps_id, 10 value from dual union all
 select '0124' s_id, '012' ps_id, 10 value from dual union all
 select '015' s_id, '01' ps_id, null value from dual union all
 select '0156' s_id, '015' ps_id, 20 value from dual union all
-
 select '017' s_id, '01' ps_id, 50 value from dual union all
 select '018' s_id, '01' ps_id, null value from dual union all
 select '0189' s_id, '018' ps_id, 10 value from dual union all
@@ -43,7 +42,7 @@ FROM h_sum
 START WITH s_id = '0' -- 0은 문자
 CONNECT BY PRIOR s_id = ps_id;
 
--- 계층형쿼리 스크립트
+-- 계층형쿼리 스크립트.sql
 -- 실습 h_5를 하기 위해서
 create table no_emp(
     org_cd varchar2(100),
@@ -79,6 +78,11 @@ CONNECT BY PRIOR org_cd = parent_org_cd;
  1. WHERE : 계층을 연결을 하고 나서 행을 제한
  2. CONNECT BY : 계층 연결을 하는 과정에서 행을 제한;
  
+SELECT LPAD(' ', (LEVEL-1)*4) || org_cd org_cd, no_emp 
+FROM no_emp
+START WITH org_cd = 'XX회사'
+CONNECT BY PRIOR org_cd = parent_org_cd;
+
  WHERE 절 기술 전 : 총 9개의 행이 조회되는 것을 확인
  WHERE 절 (org_cd != '정보기획부') : 정보기획부를 제외한 8개의 행 조회되는 것 확인;
  
@@ -206,10 +210,10 @@ WHERE sal = (SELECT MAX(sal)
 
 SELECT *
 FROM
-(SELECT ename, sal, deptno, max(sal)
-FROM emp
-group by ename, sal, deptno
-order by deptno, MAX(sal) desc);
+    (SELECT ename, sal, deptno, max(sal)
+    FROM emp
+    group by ename, sal, deptno
+    order by deptno, MAX(sal) desc);
 
 
 -- 부서별 정렬
