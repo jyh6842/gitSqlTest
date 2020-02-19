@@ -27,7 +27,7 @@ AND sal > 1500;
 -- emp 테이블 중 row 건수 : 14
 -- 페이징당 5건의 데이터 조회
 -- *paeg size : 5, 정렬기준은 ename
--- 1 page : rn 1~5
+-- 1 page : rn 1~5 
 -- 2 page : rn 6 ~ 10
 -- 3 page : rn 11 ~ 15
 -- n page : rn (n-1)*pageSize + 1 ~ n * pageSize
