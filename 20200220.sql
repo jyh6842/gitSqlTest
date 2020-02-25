@@ -198,6 +198,8 @@ END;
  SELECT *
  FROM emp;
  
+ SET SERVEROUTPUT ON; -- 이거 해야 PL/SQL이 실행됨
+
  CREATE OR REPLACE PROCEDURE printemp(p_empno IN emp.empno%TYPE) IS
     v_empno emp.empno%TYPE;
     v_ename emp.ename%TYPE;
