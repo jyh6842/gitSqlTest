@@ -74,7 +74,7 @@ WHERE dt LIKE '202002%';
  DELETE daily
  WHERE dt LIKE '202002%';
  
-SELECT *
+ SELECT *
  FROM daily;
  
  INSERT INTO daily
